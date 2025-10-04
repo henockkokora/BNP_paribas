@@ -24,15 +24,18 @@ export default function Home() {
   const { showError, showSuccess, showInfo } = useNotifications()
 
   useEffect(() => {
-    // Vérifier si l'utilisateur est connecté via localStorage
+    // Vérifier immédiatement si l'utilisateur est connecté
     const userData = localStorage.getItem('userData')
     const userCode = localStorage.getItem('userCode')
     
     if (!userData || !userCode) {
-      // Pas de données utilisateur, rediriger immédiatement vers la page de connexion
-      router.push('/login')
+      // Pas de données utilisateur, rediriger immédiatement sans afficher le loading
+      router.replace('/login')
       return
     }
+
+    // Si on a des données, commencer le loading
+    setLoading(true)
 
     try {
       const parsedUser: User = JSON.parse(userData)
@@ -46,7 +49,7 @@ export default function Home() {
         localStorage.removeItem('userData')
         localStorage.removeItem('userCode')
         showError('Compte expiré', 'Votre compte a expiré. Contactez l\'administrateur.')
-        router.push('/login')
+        router.replace('/login')
         return
       }
       
@@ -57,19 +60,9 @@ export default function Home() {
       localStorage.removeItem('userData')
       localStorage.removeItem('userCode')
       showError('Erreur', 'Session invalide')
-      router.push('/login')
+      router.replace('/login')
     }
   }, [router, showError])
-
-  // Si pas de données utilisateur, ne pas afficher le loading
-  useEffect(() => {
-    const userData = localStorage.getItem('userData')
-    const userCode = localStorage.getItem('userCode')
-    
-    if (!userData || !userCode) {
-      setLoading(false) // Arrêter le loading pour permettre la redirection
-    }
-  }, [])
 
   const handleLogout = () => {
     // Nettoyer le localStorage
@@ -77,7 +70,7 @@ export default function Home() {
     localStorage.removeItem('userCode')
     
     showInfo('Déconnexion', 'Vous avez été déconnecté avec succès')
-    router.push('/login')
+    router.replace('/login')
   }
 
   if (loading) {
