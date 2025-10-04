@@ -21,7 +21,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [showVirementModal, setShowVirementModal] = useState(false)
   const [showHistorique, setShowHistorique] = useState(false)
-  const { showError, showSuccess } = useNotifications()
+  const { showError, showSuccess, showInfo } = useNotifications()
 
   useEffect(() => {
     // Vérifier si l'utilisateur est connecté via localStorage
