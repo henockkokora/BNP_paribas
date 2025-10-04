@@ -8,8 +8,13 @@ import { NotificationContainer } from '@/components/notifications/NotificationCo
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Ma Banque - Gestion simplifiée',
+  title: 'BNP Paribas - Ma Banque',
   description: 'Maîtrisez votre budget en toute simplicité',
+  icons: {
+    icon: '/BNP-Paribas-Emblem.png',
+    shortcut: '/BNP-Paribas-Emblem.png',
+    apple: '/BNP-Paribas-Emblem.png',
+  },
 };
 
 export default function RootLayout({
