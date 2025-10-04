@@ -34,8 +34,8 @@ export default function ContactPage() {
           <div className="bg-gray-50 rounded-lg p-4 mb-4">
             <div className="flex items-start justify-between mb-2">
               <div>
-                <p className="text-sm font-semibold text-gray-900">Agence NANTES PLACE ROYALE</p>
-                <p className="text-xs text-gray-600">10 PLACE ROYALE, 44000 NANTES</p>
+                <p className="text-sm font-semibold text-gray-900">BNP Paribas</p>
+                <p className="text-xs text-gray-600">20 bd Vaugirard, Paris</p>
               </div>
               <button className="text-teal-600 text-sm">ℹ️</button>
             </div>
