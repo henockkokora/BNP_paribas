@@ -29,6 +29,7 @@ export default function AdminDashboard() {
   const [showSuspendModal, setShowSuspendModal] = useState(false)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [renewDuration, setRenewDuration] = useState(12)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [editUser, setEditUser] = useState({
     nom: '',
     fraisDeblocage: '',
@@ -50,14 +51,15 @@ export default function AdminDashboard() {
     // Vérifier si l'admin est connecté avec token JWT
     const token = localStorage.getItem('adminToken')
     if (!token) {
-      showError('Accès refusé', 'Vous devez vous connecter en tant qu\'administrateur')
-      router.push('/admin/login')
+      router.replace('/admin/login')
       return
     }
 
+    setIsAuthenticated(true)
     // Charger les utilisateurs depuis l'API backend
     loadUsers()
-  }, [router, showError])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const loadUsers = async () => {
     try {
@@ -311,8 +313,8 @@ export default function AdminDashboard() {
   const handleLogout = () => {
     localStorage.removeItem('adminToken')
     localStorage.removeItem('adminUser')
-    showInfo('Déconnexion', 'Vous avez été déconnecté avec succès')
-    router.push('/admin/login')
+    // Rediriger immédiatement sans notification pour éviter les boucles
+    router.replace('/admin/login')
   }
 
 
@@ -320,6 +322,18 @@ export default function AdminDashboard() {
     { id: 'overview', label: 'Vue d\'ensemble', icon: '📊' },
     { id: 'users', label: 'Utilisateurs', icon: '👥' }
   ]
+
+  // Afficher un écran de chargement pendant la vérification d'authentification
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p>Vérification...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
