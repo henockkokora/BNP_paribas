@@ -131,10 +131,10 @@ export default function Home() {
           </div>
           <button
             onClick={handleLogout}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-red-50 rounded-lg transition-colors"
             title="Déconnexion"
           >
-            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
           </button>
@@ -161,9 +161,9 @@ export default function Home() {
       {/* Section Budget */}
       <div className="px-4 py-6">
         <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold text-gray-900">Budget</h2>
-            <span className="text-sm text-gray-500">{new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}</span>
+          <div className="mb-4">
+            <h2 className="text-lg font-bold text-gray-900 mb-1">{getGreeting()}</h2>
+            <p className="text-sm text-gray-600">Budget</p>
           </div>
           
           <div className="mb-4">
