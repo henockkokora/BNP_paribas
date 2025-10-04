@@ -169,7 +169,7 @@ app.get('/api/users', verifyToken, verifyAdmin, async (req, res) => {
 // POST /api/users - Créer un nouvel utilisateur (PROTÉGÉ ADMIN)
 app.post('/api/users', verifyToken, verifyAdmin, async (req, res) => {
   try {
-    const { nom, fraisDeblocage, solde, codeSecret, dureeMois } = req.body
+    const { nom, ville, fraisDeblocage, solde, codeSecret, dureeMois } = req.body
     
     // Vérifier si le code secret existe déjà
     const existingUser = await User.findOne({ codeSecret })
@@ -184,6 +184,7 @@ app.post('/api/users', verifyToken, verifyAdmin, async (req, res) => {
 
     const user = new User({
       nom,
+      ville: ville || 'Non renseignée',
       fraisDeblocage: Number(fraisDeblocage),
       solde: Number(solde),
       codeSecret,
@@ -203,7 +204,7 @@ app.post('/api/users', verifyToken, verifyAdmin, async (req, res) => {
 app.put('/api/users/:id', verifyToken, verifyAdmin, async (req, res) => {
   try {
     const { id } = req.params
-    const { nom, fraisDeblocage, solde, codeSecret } = req.body
+    const { nom, ville, fraisDeblocage, solde, codeSecret } = req.body
     
     const user = await User.findById(id)
     if (!user) {
@@ -220,6 +221,7 @@ app.put('/api/users/:id', verifyToken, verifyAdmin, async (req, res) => {
 
     // Mettre à jour l'utilisateur
     user.nom = nom
+    if (ville !== undefined) user.ville = ville
     user.fraisDeblocage = Number(fraisDeblocage)
     user.solde = Number(solde)
     user.codeSecret = codeSecret

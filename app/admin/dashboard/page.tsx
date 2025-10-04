@@ -590,6 +590,7 @@ export default function AdminDashboard() {
                     <thead className="bg-white/5">
                       <tr>
                         <th className="px-6 py-4 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Nom</th>
+                        <th className="px-6 py-4 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Ville</th>
                         <th className="px-6 py-4 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Code</th>
                         <th className="px-6 py-4 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Frais</th>
                         <th className="px-6 py-4 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Solde</th>
@@ -610,6 +611,9 @@ export default function AdminDashboard() {
                               <span className="text-white font-medium">{user.nom}</span>
                             </div>
                       </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-white text-sm">
+                            {user.ville || 'Non renseignée'}
+                          </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className="px-3 py-1 bg-blue-500/20 text-blue-200 rounded-full text-sm font-mono">
                         {user.codeSecret}
