@@ -9,8 +9,19 @@ const app = express()
 const PORT = process.env.PORT || 5000
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-key-change-in-production'
 
+// Configuration CORS pour autoriser les requêtes depuis le frontend
+const corsOptions = {
+  origin: [
+    'https://bnp-paribas-alpha.vercel.app',
+    'http://localhost:3000', // Pour le développement local
+    'http://localhost:3001'
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+
 // Middleware
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json())
 
 // Middleware de vérification JWT

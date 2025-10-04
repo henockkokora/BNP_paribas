@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useNotifications } from '@/hooks/useNotifications'
+import { API_URL } from '@/lib/config'
 
 export default function CodeSecretPage() {
   const [code, setCode] = useState('')
@@ -22,7 +23,7 @@ export default function CodeSecretPage() {
 
     try {
       // Vérifier le code secret via l'API backend
-      const response = await fetch(`http://localhost:5000/api/user-by-code/${code}`)
+      const response = await fetch(`${API_URL}/api/user-by-code/${code}`)
       
       if (response.ok) {
         const user = await response.json()

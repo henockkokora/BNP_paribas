@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useNotifications } from '@/hooks/useNotifications'
+import { API_URL } from '@/lib/config'
 
 export default function AdminLoginPage() {
   const [username, setUsername] = useState('')
@@ -15,7 +16,7 @@ export default function AdminLoginPage() {
     e.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
