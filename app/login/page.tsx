@@ -32,7 +32,7 @@ export default function LoginPage() {
 
         {/* Buttons Section - Higher position */}
         <div className="w-full px-6 space-y-4 mb-32">
-          <Link href="/" className="block">
+          <Link href="/code-secret" className="block">
             <button className="w-full bg-[#1a9d55] text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-[#168f4a] transition-colors shadow-lg">
               Accéder à mes comptes
             </button>

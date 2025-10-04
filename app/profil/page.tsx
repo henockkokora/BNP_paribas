@@ -26,7 +26,7 @@ export default function ProfilePage() {
     localStorage.removeItem('userCode')
     
     showInfo('Déconnexion', 'Vous avez été déconnecté avec succès')
-    router.push('/code-secret')
+    router.push('/login')
   }
 
   const menuItems = [
