@@ -43,8 +43,8 @@ export default function CodeSecretPage() {
         
         showSuccess('Connexion réussie', `Bienvenue ${user.nom}`)
         
-        // Redirection vers le dashboard
-        window.location.href = '/dashboard'
+        // Redirection vers la page d'accueil
+        window.location.href = '/'
       } else {
         const error = await response.json()
         
