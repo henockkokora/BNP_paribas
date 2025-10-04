@@ -18,7 +18,7 @@ interface User {
 export default function Home() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [showVirementModal, setShowVirementModal] = useState(false)
   const [showHistorique, setShowHistorique] = useState(false)
   const { showError, showSuccess, showInfo } = useNotifications()
@@ -29,8 +29,8 @@ export default function Home() {
     const userCode = localStorage.getItem('userCode')
     
     if (!userData || !userCode) {
-      // Pas de données utilisateur, rediriger vers la page de connexion
-      router.push('/code-secret')
+      // Pas de données utilisateur, rediriger immédiatement vers la page de connexion
+      router.push('/login')
       return
     }
 
@@ -46,7 +46,7 @@ export default function Home() {
         localStorage.removeItem('userData')
         localStorage.removeItem('userCode')
         showError('Compte expiré', 'Votre compte a expiré. Contactez l\'administrateur.')
-        router.push('/code-secret')
+        router.push('/login')
         return
       }
       
@@ -57,9 +57,19 @@ export default function Home() {
       localStorage.removeItem('userData')
       localStorage.removeItem('userCode')
       showError('Erreur', 'Session invalide')
-      router.push('/code-secret')
+      router.push('/login')
     }
   }, [router, showError])
+
+  // Si pas de données utilisateur, ne pas afficher le loading
+  useEffect(() => {
+    const userData = localStorage.getItem('userData')
+    const userCode = localStorage.getItem('userCode')
+    
+    if (!userData || !userCode) {
+      setLoading(false) // Arrêter le loading pour permettre la redirection
+    }
+  }, [])
 
   const handleLogout = () => {
     // Nettoyer le localStorage
@@ -67,7 +77,7 @@ export default function Home() {
     localStorage.removeItem('userCode')
     
     showInfo('Déconnexion', 'Vous avez été déconnecté avec succès')
-    router.push('/code-secret')
+    router.push('/login')
   }
 
   if (loading) {
