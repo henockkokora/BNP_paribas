@@ -8,6 +8,7 @@ import { API_URL } from '@/lib/config'
 interface User {
   _id: string
   nom: string
+  ville: string
   fraisDeblocage: number
   solde: number
   codeSecret: string
@@ -32,6 +33,7 @@ export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [editUser, setEditUser] = useState({
     nom: '',
+    ville: '',
     fraisDeblocage: '',
     solde: '',
     codeSecret: '',
@@ -39,6 +41,7 @@ export default function AdminDashboard() {
   })
   const [newUser, setNewUser] = useState({
     nom: '',
+    ville: '',
     fraisDeblocage: '',
     solde: '',
     codeSecret: '',
@@ -123,7 +126,7 @@ export default function AdminDashboard() {
       if (response.ok) {
         const user = await response.json()
         setUsers([...users, user])
-        setNewUser({ nom: '', fraisDeblocage: '', solde: '', codeSecret: '', dureeMois: 12 })
+        setNewUser({ nom: '', ville: '', fraisDeblocage: '', solde: '', codeSecret: '', dureeMois: 12 })
         setShowAddForm(false)
         showSuccess('Utilisateur créé', `${user.nom} a été ajouté avec succès`)
       } else {
@@ -232,6 +235,7 @@ export default function AdminDashboard() {
     setSelectedUser(user)
     setEditUser({
       nom: user.nom,
+      ville: user.ville || '',
       fraisDeblocage: user.fraisDeblocage.toString(),
       solde: user.solde.toString(),
       codeSecret: user.codeSecret,
@@ -487,6 +491,16 @@ export default function AdminDashboard() {
                 />
               </div>
                   <div className="space-y-2">
+                    <label className="block text-sm font-medium text-blue-200">Ville</label>
+                <input
+                  type="text"
+                  value={newUser.ville}
+                  onChange={(e) => setNewUser({ ...newUser, ville: e.target.value })}
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent backdrop-blur-sm"
+                      placeholder="Ville de résidence"
+                />
+              </div>
+                  <div className="space-y-2">
                     <label className="block text-sm font-medium text-blue-200">Code secret *</label>
                 <input
                   type="text"
@@ -680,6 +694,16 @@ export default function AdminDashboard() {
                   onChange={(e) => setEditUser({ ...editUser, nom: e.target.value })}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent backdrop-blur-sm"
                   placeholder="Nom de l'utilisateur (obligatoire)"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-blue-200">Ville</label>
+                <input
+                  type="text"
+                  value={editUser.ville}
+                  onChange={(e) => setEditUser({ ...editUser, ville: e.target.value })}
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent backdrop-blur-sm"
+                  placeholder="Ville de résidence"
                 />
               </div>
               <div className="space-y-2">

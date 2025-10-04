@@ -36,7 +36,7 @@ export default function ProfilePage() {
       description: 'Gérez vos données personnelles',
       content: [
         { label: 'Nom complet', value: user?.nom || 'Utilisateur' },
-        { label: 'Adresse', value: '10 Place Royale, 44000 Nantes' },
+        { label: 'Ville', value: user?.ville || 'Non renseignée' },
         { label: 'Email', value: `${user?.nom?.toLowerCase().replace(/\s+/g, '') || 'utilisateur'}@gmail.com` },
         { label: 'Code secret', value: user?.codeSecret || '****' }
       ]

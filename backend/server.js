@@ -70,6 +70,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  ville: {
+    type: String,
+    required: false,
+    trim: true,
+    default: 'Non renseignée'
+  },
   fraisDeblocage: {
     type: Number,
     required: true,

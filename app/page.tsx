@@ -7,6 +7,7 @@ import { useNotifications } from '@/hooks/useNotifications'
 interface User {
   _id: string
   nom: string
+  ville: string
   fraisDeblocage: number
   solde: number
   codeSecret: string
@@ -106,8 +107,40 @@ export default function Home() {
     )
   }
 
+  // Déterminer le message selon l'heure
+  const getGreeting = () => {
+    const heure = new Date().getHours()
+    return heure >= 18 || heure < 5 ? 'Bonsoir' : 'Bonjour'
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
+      {/* Header avec nom et date */}
+      <div className="px-4 py-4 bg-white border-b border-gray-200">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">{getGreeting()}, {user.nom}</h1>
+            <p className="text-sm text-gray-500">
+              {new Date().toLocaleDateString('fr-FR', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            title="Déconnexion"
+          >
+            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
       {/* Badge Compte bloqué */}
       <div className="px-4 py-4">
         <div className="bg-red-100 border border-red-200 rounded-xl p-4">
